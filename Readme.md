@@ -16,9 +16,9 @@
 
 首先，我们需要安装 [Node.js](https://nodejs.org/zh-cn/) 和 [npm](https://www.npmjs.com/)。
 
-For Windows: 安装Lab目录中的 node-v6.10.2-x64.msi，或前往官网下载安装。
+For Windows: 前往官网下载安装。
 
-For Mac: 安装Lab目录中的 node-v6.10.2.pkg，或前往官网下载安装。
+For Mac: 前往官网下载安装。
 
 npm 会随着 Node.js 一同安装。
 
