@@ -1,4 +1,4 @@
-# 高级Web技术 Lab 2：Angular 框架
+# 高级Web技术 Lab 2 : Angular 框架
 
 
 # 前言
@@ -6,80 +6,74 @@
 这篇 Lab 主要包括了 Angular 框架的背景、技术栈和起步指导。具体学习 Angular 推荐同学们参考官方文档，不要依赖于 Lab 文档。
 
 
-## 1. Angular
+### 一、安装Node与npm
 
-在PJ中，推荐同学们使用 Angular 、 React 或者 Vue 开发。不希望不使用前端框架而只使用 jQuery 等简单的库。
+首先，我们需要安装 Node.js 和 npm。
 
-> Angular 官网：https://angular.io，Angular 为 Google 出品，请自备翻墙网络。
+前往官网下载安装 Node.js , npm 会随着 Node.js 一同安装。
 
-### 1.1 安装 Node 与 npm
+#### Node.js
 
-首先，我们需要安装 [Node.js](https://nodejs.org/zh-cn/) 和 [npm](https://www.npmjs.com/)。
+Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行时，可以近似理解为脱离浏览器运行 JavaScript 代码的平台。常见用途是开发后端服务器，但是思维导图的 PJ 中是使用Spring boot 开发后端，而不是Node.js。
 
-For Windows: 前往官网下载安装。
+#### npm
 
-For Mac: 前往官网下载安装。
+npm = Node Package Manager，绝大部分的现代前端项目中都使用 npm 作为包管理工具。
 
-npm 会随着 Node.js 一同安装。
+>原生 npm 在中国的访问速度特别慢，如果没有稳定的翻墙环境，推荐使用阿里的国内 npm 镜像：https://npm.taobao.org/
 
-#### 1.1.1 Node.js
+### 二、安装Angular
 
-Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行时，可以近似理解为脱离浏览器运行 JavaScript 代码的平台。常见用途是开发后端服务器，同学们可以在 PJ 中使用 Node.js 开发后端。
+以下的内容来自angular.cn中文官网:《快速上手》，https://angular.cn/guide/quickstart
 
-在 Angular 板块中我们不需要用到 Node，我们需要用到的是 Node 的包管理工具 npm。
+好的工具能让开发更加简单快捷。
 
-#### 1.1.2 npm
+本章的目标是构建并运行一个超级简单的 TypeScript Angular 应用。使用 Angular CLI 来让每个 Angular 应用从风格指南的那些建议中获益。
 
-npm = Node Package Manager，绝大部分的现代前端项目中都使用 npm 作为包管理工具。在 lab1 中我们就会使用npm来安装Angular，TypeScript等包依赖。
+在本章的末尾，你会对用 CLI 进行开发有一个最基本的理解，并将其作为其它文档范例以及真实应用的基础。
 
-> （重要）原生 npm 在中国的访问速度特别慢，如果没有稳定的翻墙环境，推荐使用阿里的国内 npm 镜像：https://npm.taobao.org/
+#### 步骤 1. 设置开发环境
 
+在开始工作之前，你必须设置好开发环境。
 
+如果你的电脑里没有 Node.js®和 npm，请安装它们。
 
-### 1.2 新建 Angular 项目
+>请先在终端/控制台窗口中运行命令 node -v 和 npm -v， 来验证一下你正在运行 node 6.9.x 和 npm 3.x.x 以上的版本。 更老的版本可能会出现错误，更新的版本则没问题。
 
-> 新建 Angular 项目会用 npm 安装许多依赖，使用教学楼网络可能会消耗很长时间来下载所有文件。
->
-> 如果没有翻墙网络，务必使用阿里的国内 npm 镜像，否则有很大可能下载失败。
->
-> 同学们也可以通过 Angular 的 CLI 来创建新的项目，具体参考官方文档。
+然后全局安装 Angular CLI 。
 
-#### Step 1: Clone official quickstart seed
-
-从头新建 Angular 项目是非常繁琐的，我们直接从 GitHub 上 clone Angular 的起始项目种子。在命令行中运行：
-
-```shell
-ng new angualr
+```
+npm install -g @angular/cli
 ```
 
-#### Step 2: 使用 npm 安装依赖
+#### 步骤 2. 创建新项目
 
-首先切换到项目目录：
+打开终端窗口。
 
-```shell
-cd angular
+运行下列命令来生成一个新项目以及应用的骨架代码：
+
+```
+ng new angular
 ```
 
-你可以从 `package.json` 文件中查看到项目所用的依赖包。
+>请耐心等待。 创建新项目需要花费很多时间，大多数时候都是在安装那些 npm 包。
 
-使用 npm 安装依赖：
+#### 步骤 3. 启动开发服务器
 
-```shell
-npm install
+进入项目目录，并启动服务器。
+
+```
+cd angular 
+ng serve --open
 ```
 
-可以观察到， 在安装依赖之前，项目只有 1.4 MB。安装完依赖后，项目大小增加到了 100 MB 以上。
+ng serve 命令会启动开发服务器，监听文件变化，并在修改这些文件时重新构建此应用。
 
-#### Step 3: 运行 Angular 项目
+使用 --open（或 -o）参数可以自动打开浏览器并访问 http://localhost:4200/。
 
-运行 Angular 项目本身是非常复杂的，不过我们 clone 的起始种子已经配置好了 Angular 的运行脚本。
+本应用会用一条消息来跟你打招呼：
 
-```shell
-# 在命令行中运行：
-npm start
-```
-
-编译成功后，会在本机的 4200 端口运行一个 Node.js 后端部署我们的 Angular 项目。在浏览器中访问 localhost:4200 即可。
+![](./assests/img/app-works.png)
 
 #### Step 4: 使用 npm 添加 Material UI 库
 
