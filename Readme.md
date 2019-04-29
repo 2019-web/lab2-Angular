@@ -223,8 +223,9 @@ export class AppComponent {
 
 运行后界面如图： ![Screen Shot 2017-04-14 at 1.27.57 AM](https://cloud.githubusercontent.com/assets/6532225/25094182/82575e16-23c8-11e7-8844-e5cf96127f9d.png)
 
-同学们可以在此基础上自己尝试做些修改。
+同学们可以在此基础上自己尝试做些修改。 
 
+我写了一个例子的demo，[https://github.com/2019-web/Angular-Material](https://github.com/2019-web/Angular-Material)
 
 
 ## 4. 进阶部分
