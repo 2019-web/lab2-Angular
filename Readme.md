@@ -53,7 +53,7 @@ npm install -g @angular/cli
 运行下列命令来生成一个新项目以及应用的骨架代码：
 
 ```
-ng new angular
+ng new angular-learning
 ```
 
 >请耐心等待。 创建新项目需要花费很多时间，大多数时候都是在安装那些 npm 包。
@@ -63,7 +63,7 @@ ng new angular
 进入项目目录，并启动服务器。
 
 ```
-cd angular 
+cd angular-learning
 ng serve --open
 ```
 
@@ -116,7 +116,7 @@ TypeScript 是一种编译到 JavaScript 的编程语言，弥补了一些 JavaS
 
 #### 3.2 Angular 代码结构
 
-我们 clone 的 quickstart seed 中有许多文件，其中大部分在我们 Lab 中不需要关注。
+我们新建的项目 angular-learning 中有许多文件，其中大部分在我们 Lab 中不需要关注。
 
 首先我们来看 `src/index.html` ，这是 Angular 项目的起始 HTML 页面，也是唯一的 HTML 页面。我们其他的 HTML、CSS、TypeScript 等代码都会被动态加载到这个 HTML 文件中。在页面切换的时候，Angular 不会跳转到另外一个页面，而是修改这个页面。这样的设计结构也被叫做单页面应用（[Single-page application](https://en.wikipedia.org/wiki/Single-page_application)， SPA），大部分现代前端框架都采用了这种设计。
 
