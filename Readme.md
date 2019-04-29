@@ -38,13 +38,15 @@ npm = Node Package Manager，绝大部分的现代前端项目中都使用 npm �
 
 如果你的电脑里没有 Node.js®和 npm，请安装它们。
 
->请先在终端/控制台窗口中运行命令 node -v 和 npm -v， 来验证一下你正在运行 node 6.9.x 和 npm 3.x.x 以上的版本。 更老的版本可能会出现错误，更新的版本则没问题。
-
 然后全局安装 Angular CLI 。
 
 ```
 npm install -g @angular/cli
 ```
+
+>请先在终端/控制台窗口中运行命令 node -v 和 npm -v， 来验证一下你正在运行 node 、npm 和 Angular CLI 的版本。 最新稳定的版本则没问题。
+
+![](./assests/img/version.png)
 
 #### 步骤 2. 创建新项目
 
