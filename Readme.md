@@ -217,7 +217,15 @@ export class AppComponent {
   - ngOnInit 方法会在 AppComponent 首次被加载时调用，里面代码的作用是每秒给 time 变量加一
   - addOneSecond 方法可以直接为 time 变量加一
 
-运行后界面如图： ![Screen Shot 2017-04-14 at 1.27.57 AM](https://cloud.githubusercontent.com/assets/6532225/25094182/82575e16-23c8-11e7-8844-e5cf96127f9d.png)
+运行后界面如图：
+
+![](./assests/img/angular-material.png)
+
+demo的代码在这里:
+
+```
+https://github.com/2019-web/Angular-Material
+```
 
 同学们可以在此基础上自己尝试做些修改。 
 
