@@ -273,16 +273,17 @@ ng generate component tom
 ```
 > 假设parents(父母)有孩子的名称为Alice、Bob和Tom
 
-在项目的```lab2-angular-code-part1/src/app/app.component.html```，首先清空这个模版页面的内容，然后输入如下的代码:
+在```lab2-angular-code-part1/src/app/app.component.html```中，首先清空这个模版页面的内容，然后输入如下的代码:
 
 ```html
 <app-parents>
   <app-alice></app-alice>
   <app-bob></app-bob>
+  <app-tom></app-tom>
 </app-parents>
 ```
 
-这个时候去访问```http://localhost:4200```，你会发现只会输出如下的界面内容
+在浏览器中去访问```http://localhost:4200```，你会发现只会输出如下的界面内容:
 
 ```html
 parents works!
@@ -307,15 +308,17 @@ parents works!
 alice works!
 
 bob works!
+
+tom works!
 ```
 
-如果你想控制选择性的让alice或者bob输出，那么```<ng-content>```还有```select```属性，可以选择控制其中一种输出:
-```src/app/parents/parents.component.html```
+如果你想控制选择性的让 alice、bob 或者 tom 组件输出，可以用```<ng-content>``` 的 ```select```属性，可以选择控制其中内容输出。
 
-代码修改如下:
+在```src/app/parents/parents.component.html```中，代码修改如下 :
 
 ```html
 parents work！
+<!-- app-alice是alice组件的选择器 -->
 <ng-content select="app-alice"></ng-content>
 ```
 
@@ -327,22 +330,27 @@ parents works!
 alice works!
 ```
 
-##### (2) ContentChild
+可以只有看到alice组件的内容输出了，其它两个组件 tom 和 bob 没有内容输出。
 
-如果在
+##### (2) ContentChild 装饰器
+
+在```lab2-angular-code-part1/src/app/app.component.html```中：
 
 ```html
-<parents-component>
-    <alice-component></alice-component>
-    <bob-component></bob-component>
-</parents-component>
+<app-parents>
+  <app-alice></app-alice>
+  <app-bob></app-bob>
+  <app-tom></app-tom>
+</app-parents>
 ```
 
-这个组件调用结果，parents组件可以通过ContentChild去访问得到alice组件内部的内容。
-src/app/parents/parents.component.ts，修改代码为如下:
+这个组件调用结果，parents组件可以通过```ContentChild```装饰器去访问得到alice组件内部的内容。
+在```lab2-angular-code-part1/src/app/parents/parents.component.ts```中
+修改代码为如下:
 
 ```javascript
 import { Component, OnInit, ContentChild } from '@angular/core';
+// 引入AliceComponent组件
 import {AliceComponent} from '../alice/alice.component';
 
 @Component({
@@ -351,7 +359,7 @@ import {AliceComponent} from '../alice/alice.component';
   styleUrls: ['./parents.component.css']
 })
 export class ParentsComponent implements OnInit {
-
+  // 
   @ContentChild(AliceComponent) alice:AliceComponent;
   
   constructor() { }
@@ -367,25 +375,24 @@ export class ParentsComponent implements OnInit {
 
 ```
 
-在浏览器的控制台打印出来的界面如下所示:
+在 Chrome 浏览器，进入“开发者工具”，可以看到如下的变量输出:
 
 ![](./assests/img/1.png)
 
 可以看到是打印 AliceComponent组件内的全部的变量和方法的，我们实际上没有定义，所以看到的内容比较少。
 
-> 实际上，到了这里这种组件的定义并不是父子组件的关系。
+> 实际上，到了这里这种组件的嵌套关系并不是父子组件的关系。
 
 下面开始介绍父子组件的形式；
 
 ##### (3) 父子组件
 
-将```lab2-angular-code-part1/src/app/app.component.html```的代码修改如下:
+在```lab2-angular-code-part1/src/app/app.component.html```中，代码修改如下:
 
 ```html
 <app-parents></app-parents>
 ```
-
-在```src/app/parents/parents.component.html```的代码修改如下:
+在```lab2-angular-code-part1/src/app/parents/parents.component.html```中，代码修改如下:
 
 ```html
 <p>
@@ -393,9 +400,9 @@ parents work！
 </p>
 <app-alice></app-alice>
 ```
-在ParentsComponent组件的模板中引入的标签```<app-alice></app-alice>```，这样ParentsComponent和AliceComponent才构成父子组件的关系。
+在parents组件的模板中引入的标签```<app-alice></app-alice>```，这样parents和alice才构成父子组件的关系。
 
-这个时候在浏览上的输出结果为:
+在浏览器中去访问```http://localhost:4200```，你会发现输出如下的界面内容:
 
 ```html
 parents works!
@@ -407,8 +414,9 @@ alice works!
 
 如果父亲组件想访问子组件内部的属性和方法，用的是ViewChild 装饰器，
 
-这个组件调用结果，parents组件可以通过ViewChild去访问得到alice组件内部的方法和属性。
-```src/app/parents/parents.component.ts```，修改代码为如下:
+这个组件调用结果，parents组件可以通过 ViewChild 装饰器去访问得到alice组件内部的方法和属性。
+
+在```lab2-angular-code-part1/src/app/parents/parents.component.ts```中，代码修改如下:
 
 ```javascript
 import { Component, OnInit, ContentChild } from '@angular/core';
@@ -436,7 +444,7 @@ export class ParentsComponent implements OnInit {
 
 ```
 
-这个时候在浏览器上的输出结果是 ：
+在 Chrome 浏览器，进入“开发者工具”，可以看到如下的变量输出:
 
 ![](./assests/img/1.png)
 
@@ -445,7 +453,7 @@ export class ParentsComponent implements OnInit {
 
 ##### (5) ```<ng-template>```
 
-在```src/app/parents/parents.component.html```的代码修改如下 :
+在```lab2-angular-code-part1/src/app/parents/parents.component.ts```中，代码修改如下 :
 
 ```html
 <p>
@@ -470,13 +478,13 @@ tom works!
 
 实际上，我们发现，alice，bob，tom三个组件的有相同的部分，都是只输出了"组件名 works!"而已。而且alice，bob，tom三个组件几乎完全相同，能否有没有模版来实现这样的操作，下面介绍```<ng-template>```。
 
-在```src/app/parents/parents.component.html```的代码修改如下 :
+在```lab2-angular-code-part1/src/app/parents/parents.component.html```中，代码修改如下 :
 
 ```html
 <p>
   parents work！
 </p>
-<!-- 模版的定义，实际上不会输出结果 -->
+<!-- 模版的定义 -->
 <ng-template #childTemplate let-name="name">
   <p>{{name}} works</p>
 </ng-template>
@@ -533,7 +541,7 @@ ng generate component children
 
 Children组件是允许外部的值输入，这样简单点。
 
-在```lab2-angular-code-part2/src/app/children/children.component.html```的代码修改如下 :
+在```lab2-angular-code-part2/src/app/children/children.component.html```中，代码修改如下 :
 
 ```html
 <p>
@@ -541,7 +549,7 @@ Children组件是允许外部的值输入，这样简单点。
 <p>
 ```
 
-在```lab2-angular-code-part2/src/app/children/children.component.ts```的代码修改如下 :
+在```lab2-angular-code-part2/src/app/children/children.component.ts```中，代码修改如下 :
 
 ```javascript
 import { Component, OnInit, Input } from '@angular/core';
@@ -564,9 +572,7 @@ export class ChildrenComponent implements OnInit {
 }
 ```
 
-
-
-在``````lab2-angular-code-part2/src/app/parents/parents.component.html```的代码修改如下:
+在``````lab2-angular-code-part2/src/app/parents/parents.component.html```中，代码修改如下:
 
 ```html
 <p>
@@ -579,7 +585,7 @@ export class ChildrenComponent implements OnInit {
 
 ```
 
-在```lab2-angular-code-part2/src/app/parents/parents.component.ts```的代码修改如下:
+在```lab2-angular-code-part2/src/app/parents/parents.component.ts```中，代码修改如下:
 
 ```javascript
 import { Component, OnInit, ComponentFactory,ViewContainerRef,ViewChild, OnDestroy,ComponentFactoryResolver, TemplateRef } from '@angular/core';
@@ -634,8 +640,7 @@ export class ParentsComponent implements OnInit, OnDestroy {
 
 ```
 
-
-最后，在app.module.ts文件加入引入部分的代码，如下所示：
+在```lab2-angular-code-part2/src/app/app.module.ts```中，代码修改如下:
 
 ```javascript
 import { BrowserModule } from '@angular/platform-browser';
@@ -655,7 +660,7 @@ import { ChildrenComponent } from './children/children.component';
     BrowserModule
   ],
   providers: [],
-  // 将动态组件ChildrenComponent添加到 NgModule 的entryComponents 属性中
+  // 将动态组件ChildrenComponent添加到 NgModule 的entryComponents 中
   entryComponents:[ChildrenComponent],
   bootstrap: [AppComponent],
 })
@@ -663,7 +668,7 @@ export class AppModule { }
 
 ```
 
-最终的界面如下，可以实现点击按钮即可创建相应的组件。
+在浏览器中去访问```http://localhost:4200```，你会发现输出如下的界面内容:
 
 ![](./assests/img/2.png)
 
