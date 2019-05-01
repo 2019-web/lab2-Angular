@@ -431,7 +431,7 @@ alice works!
 在```lab2-angular-code-part1/src/app/parents/parents.component.ts```中，代码修改如下:
 
 ```javascript
-import { Component, OnInit, ContentChild } from '@angular/core';
+import { Component, OnInit, ViewChild} from '@angular/core';
 import {AliceComponent} from '../alice/alice.component';
 
 @Component({
