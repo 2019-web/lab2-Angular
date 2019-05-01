@@ -118,23 +118,9 @@ TypeScript 是一种编译到 JavaScript 的编程语言，弥补了一些 JavaS
 
 #### 3.2 Angular 代码结构
 
-我们新建的项目 angular-learning 中有许多文件，其中大部分在我们 Lab 中不需要关注。
+[TODO]
 
-首先我们来看 `src/index.html` ，这是 Angular 项目的起始 HTML 页面，也是唯一的 HTML 页面。我们其他的 HTML、CSS、TypeScript 等代码都会被动态加载到这个 HTML 文件中。在页面切换的时候，Angular 不会跳转到另外一个页面，而是修改这个页面。这样的设计结构也被叫做单页面应用（[Single-page application](https://en.wikipedia.org/wiki/Single-page_application)， SPA），大部分现代前端框架都采用了这种设计。
-
-尽管网页内容都会被加载到 `src/index.html` 中，但一般我们不需要对这个文件作修改，网页内容都会动态地加载进来：
-
-```html
-<script>
-	System.import('main.js').catch(function(err){ console.error(err); });
-</script>
-```
-
-在这里，`index.html` 导入了 `main.js` 。`main.js` 是从 `main.ts` 编译过来的，如果你已经成功运行过 `npm start`，就能看到 `main.js` 文件。
-
-`main.ts` 做了两件事，一是指定我们的运行平台是浏览器（Angular 还支持其他平台），二是导入了 `src/app/app.module` 文件。而 `src/app/app.module` 导入了 `src/app/app.component.ts` 文件。
-
-我们这次的 Lab 就从`src/app/app.module` 和  `src/app/app.component.ts` 文件开始，暂时不需要理会之前的几个文件。
+具体参考见: 工作区与项目文件的结构[https://angular.cn/guide/file-structure](https://angular.cn/guide/file-structure)
 
 #### 3.3 理解起始工程
 
@@ -154,24 +140,31 @@ TypeScript 是一种编译到 JavaScript 的编程语言，弥补了一些 JavaS
 
 #### 3.4 修改起始代码，改成计时器
 
-首先，我们导入刚刚安装的 `Material UI` 组件到 `src/app/app.module` 中：
+首先，我们导入刚刚安装的 `Material UI` 组件到 `src/app/app.module.ts` 中：
 
 ```typescript
-import {NgModule}      from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule} from '@angular/material';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 
-import {AppComponent}  from './app.component';
+import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material';
+
 
 @NgModule({
-  imports: [BrowserModule, MatButtonModule, BrowserAnimationsModule],
-  exports: [MatButtonModule],
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent,
+
+  ],
+  imports: [
+    BrowserModule,
+    MatButtonModule, 
+    BrowserAnimationsModule
+  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule { }
 ```
 
 这里只导入了 `Material UI` 中的 `MdButtonModule`， 即按钮组件的样式。使用组件则需要导入对应的组件模块。
@@ -179,15 +172,19 @@ export class AppModule {
 然后修改 `src/app/app.component.ts` 为：
 
 ```typescript
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
+import { MatButtonModule } from '@angular/material';
 
 @Component({
-  selector: 'my-app',
-  styles: ['h1 {color: #00bcd4;}', 'button {background-color: #00bcd4; color: white}'],
-  template: `<h1>Time flows: {{time}}s.</h1>
-			 <button md-raised-button (click)="addOneSecond()">+1s</button>`,
+  selector: 'app-root',
+  template: `
+  <h1>Time flows: {{time}}s.</h1>
+  <button mat-raised-button (click)="addOneSecond()" color="accent">+1s</button>
+  `,
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
   time = 0;
 
   ngOnInit():void {
@@ -201,6 +198,7 @@ export class AppComponent {
     this.time += 1;
   }
 }
+
 ```
 
  `src/app/app.component.ts` 中目前包含了整个页面的 HTML，CSS 和 TypeScript 代码。
@@ -216,6 +214,12 @@ export class AppComponent {
 - AppComponent 中定义了一个 time 变量。
   - ngOnInit 方法会在 AppComponent 首次被加载时调用，里面代码的作用是每秒给 time 变量加一
   - addOneSecond 方法可以直接为 time 变量加一
+
+在```src/styles.css```代码中引入全局的样式文件：
+
+```css
+@import '@angular/material/prebuilt-themes/pink-bluegrey.css';
+```
 
 运行后界面如图：
 
