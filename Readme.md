@@ -118,9 +118,7 @@ TypeScript 是一种编译到 JavaScript 的编程语言，弥补了一些 JavaS
 
 #### 3.2 Angular 代码结构
 
-[TODO]
-
-具体参考见: 工作区与项目文件的结构[https://angular.cn/guide/file-structure](https://angular.cn/guide/file-structure)
+这里不再赘述，具体参考官方文档: 工作区与项目文件的结构[https://angular.cn/guide/file-structure](https://angular.cn/guide/file-structure)
 
 #### 3.3 理解起始工程
 
@@ -236,11 +234,11 @@ https://github.com/2019-web/Angular-Material
 我写了一个例子的demo，[https://github.com/2019-web/Angular-Material](https://github.com/2019-web/Angular-Material)
 
 
-## 4. 进阶部分
+## 4. 深入理解组件
 
 ### 4.1 背景知识
 
-从父子组件之间的关系谈起。
+从父子组件之间的关系谈起，希望能深入理解组件部分。
 
 #### 4.1.1 Angular的“ng-”元素
 
@@ -248,7 +246,7 @@ Angular拥有很多遵循```ng-```命名约定的属性，它们都共享一个�
 
 1. ```<ng-container>```
 
-我们一般用的最多的那个是ng-container。Angular 的```<ng-container>``是一个分组元素，但它不会污染样式或元素布局，因为 Angular压根不会把它放进 DOM中。
+我们一般用的最多的那个是ng-container。Angular 的```<ng-container>``是一个分组元素，但它不会污染样式或元素布局，因为 Angular压根不会把它放进 DOM中，这部分比较简单的，一般作为容器使用。
 
 2. ```<ng-content>```
 
@@ -301,9 +299,25 @@ ng generate component tom
 parents works!
 ```
 
+```<app-parents></app-parents>```标签内部包裹的
+
+```
+  <app-alice></app-alice>
+  <app-bob></app-bob>
+  <app-tom></app-tom>
+```
+却没有任何输出！
+
+这里在 Vue.js 中也有相似的概念，具体参考 Vue.js 官方文档[编译作用域](https://cn.vuejs.org/v2/guide/components-slots.html#%E7%BC%96%E8%AF%91%E4%BD%9C%E7%94%A8%E5%9F%9F)
+
+作为一条规则，请记住：
+
+> 父级组件里的所有内容都是在父级作用域中编译的；子组件里的所有内容都是在子作用域中编译的。
+
+
 ##### (1) ```<ng-content>```
 
-你会发现，alice和bob组件内部的内容都不会在页面上输出的。如果想要输出alice和bob组件内部的内容，就要在```src/app/parents/parents.component.html```,加入```<ng-content>```闭合标签，模版的代码如下所示:
+如果想要输出 alice 和 bob 组件内部的内容，就要在```src/app/parents/parents.component.html```,加入```<ng-content>```闭合标签，模版的代码如下所示:
 
 ```html
 <p>
@@ -343,6 +357,9 @@ alice works!
 ```
 
 可以只有看到alice组件的内容输出了，其它两个组件 tom 和 bob 没有内容输出。
+
+在Vue.js中，也有与```<ng-content>```相类似的概念，是```<slot>```，具体参考 Vue.js 官方网站的内容[插槽](https://cn.vuejs.org/v2/guide/components-slots.html#%E6%8F%92%E6%A7%BD%E5%86%85%E5%AE%B9)
+
 
 ##### (2) ContentChild 装饰器
 
@@ -391,11 +408,11 @@ export class ParentsComponent implements OnInit {
 
 ![](./assests/img/1.png)
 
-可以看到是打印 AliceComponent组件内的全部的变量和方法的，我们实际上没有定义，所以看到的内容比较少。
+可以看到是打印 AliceComponent 组件内的全部的变量和方法的，我们实际上没有定义，所以看到的内容比较少。
 
 > 实际上，到了这里这种组件的嵌套关系并不是父子组件的关系。
 
-下面开始介绍父子组件的形式；
+下面开始介绍父子组件的形式：
 
 ##### (3) 父子组件
 
@@ -424,7 +441,7 @@ alice works!
 
 ##### (4) ViewChild 装饰器
 
-如果父亲组件想访问子组件内部的属性和方法，用的是ViewChild 装饰器，
+如果父亲组件想访问子组件内部的属性和方法，用的是 ViewChild 装饰器，
 
 这个组件调用结果，parents组件可以通过 ViewChild 装饰器去访问得到alice组件内部的方法和属性。
 
@@ -537,7 +554,9 @@ tom works
 
 动态组件的代码可能在最终的 PJ 上是用不到的，这里供拓展相关的知识。
 
-首先，到了这里，要将之前的三个孩子组件全部删除，可以还要考虑删除引用的问题。我在这里是重新新建项目，再创建两个组件简单点，如下操作:
+首先，到了这里，要将之前的三个孩子组件全部删除，可以还要考虑删除引用的问题。
+
+我在这里是重新新建项目，重新创建两个组件，这样简单点，如下操作:
 
 ```ini
 # 创建新的项目，项目名称 lab2-angular-code-part2
@@ -551,7 +570,7 @@ ng generate component parents
 ng generate component children
 ```
 
-Children组件是允许外部的值输入，这样简单点。
+parents组件是父组件，children组件是子组件，子组件允许父组件传入值。
 
 在```lab2-angular-code-part2/src/app/children/children.component.html```中，代码修改如下 :
 
@@ -584,7 +603,7 @@ export class ChildrenComponent implements OnInit {
 }
 ```
 
-在``````lab2-angular-code-part2/src/app/parents/parents.component.html```中，代码修改如下:
+在```lab2-angular-code-part2/src/app/parents/parents.component.html```中，代码修改如下:
 
 ```html
 <p>
@@ -680,7 +699,7 @@ export class AppModule { }
 
 ```
 
-在浏览器中去访问```http://localhost:4200```，你会发现输出如下的界面内容:
+在浏览器中去访问```http://localhost:4200```，你会发现输出如下的界面内容，点击不同的按钮，可以看到不同的值，同时在点击按钮的过程中，完成Children组件的创建。
 
 ![](./assests/img/2.png)
 
@@ -729,7 +748,7 @@ export class AppModule { }
 
 **题目3:**
 
-同学们在 Web 应用基础课上学习的 jQuery 在七年之前还是相当前沿的 JavaScript 库；而如今，jQuery 慢慢淡出舞台，Angular, React 和 Vue 是三个最流行的前端框架。传统的 JavaScript 库以 DOM 操作为核心，现在流行的 MVVM 前端框架以少操作 DOM 和以数据核心操作对象。谈谈前端这种编程方式衍变的好处来加深对于 MVVM 框架的理解？
+同学们在 Web 应用基础课上学习的 jQuery 在七年之前还是相当前沿的 JavaScript 库；而如今，jQuery 慢慢淡出舞台，Angular, React 和 Vue 是三个最流行的前端框架。传统的 JavaScript 库以 DOM 操作为核心，现在流行的 MVVM 前端框架以少操作 DOM 和以数据为核心操作对象。谈谈前端这种编程方式衍变的好处来加深对于 MVVM 框架的理解？
 
 
 
