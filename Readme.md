@@ -692,6 +692,13 @@ export class AppModule { }
 
 相关参考：
 
+1. 动态组件加载器[https://angular.cn/guide/dynamic-component-loader](https://angular.cn/guide/dynamic-component-loader)
+
+2. ViewChild[https://angular.cn/api/core/ViewChild](https://angular.cn/api/core/ViewChild)
+
+3. ContentChild[https://angular.cn/api/core/ContentChild](https://angular.cn/api/core/ContentChild)
+
+
 > Angular 官方网站: https://angular.io，中文网站：https://angular.cn。推荐先阅读文档中的 Tutorial 部分实现官方样例，再阅读 Guide 部分详细了解 Angular 的工作原理。
 >
 > Angular 开发相关资源：https://angular.io/resources，中文：https://angular.cn/resources。其中，IDE 推荐使用 IntelliJ 或者 WebStorm，Tooling 部分推荐学习 Angular CLI，UI Component 部分列举了目前主要的 UI 库，跨平台开发部分推荐了解 Ionic 和 Electron。
