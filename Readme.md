@@ -546,7 +546,9 @@ bob works
 tom works
 ```
 
-说明 : 在```<div></div>```标签内部定义的方括号扩起来的，如ngTemplateOutlet、ngTemplateOutletContext一般称之为指令。
+说明 : 在```<div></div>```标签内部定义的方括号扩起来的，如ngTemplateOutlet、ngTemplateOutletContext一般称之为“指令”。
+
+```#childTemplate```称之为模板引用变量（#var），具体参考官方的文档：[模板引用变量 ( #var )](https://angular.cn/guide/template-syntax#ref-vars)
 
 好的，到这里，我们定义了三个组件，完成的工作都是输出结果，有高度的一致性，我们能不能只定义一个组件 Children 组件，然后利用这个组件去实现三个组件的创建，类似于工厂方法的设计模式呢？
 
@@ -616,6 +618,9 @@ export class ChildrenComponent implements OnInit {
 
 ```
 
+```#addChild```是模板引用变量。
+
+
 在```lab2-angular-code-part2/src/app/parents/parents.component.ts```中，代码修改如下:
 
 ```javascript
@@ -633,7 +638,7 @@ export class ParentsComponent implements OnInit, OnDestroy {
   // Children组件的引用
   componentRef: ComponentRef<ChildrenComponent>;
 
-  // 通过 ViewChild 装饰器来获取视图中的模板元素，如果没有指定第二个查询参数read，则默认返回的组件实例或相应的 DOM 元素，但是在这里我们需要获取 ViewContainerRef 实例。
+  // 通过 ViewChild 装饰器来获取视图中的模板引用变量#addChild，如果没有指定第二个查询参数read，则默认返回的组件实例或相应的 DOM 元素，但是在这里我们需要获取 ViewContainerRef 实例。
   @ViewChild("addChild", { read: ViewContainerRef }) addChild: ViewContainerRef;
 
   // 在我们定义 createComponent() 方法前，我们需要注入 ComponentFactoryResolver 服务对象。该 ComponentFactoryResolver 服务对象中，提供了一个很重要的方法 - resolveComponentFactory() ，该方法接收一个组件类作为参数，并返回 ComponentFactory
@@ -644,16 +649,16 @@ export class ParentsComponent implements OnInit, OnDestroy {
   }
 
   createComponent(name: string) {
-
+    
     // 每次我们需要创建组件时，我们需要删除之前的视图，否则组件容器中会出现多个视图 (如果允许多个组件的话，就不需要执行清除操作 )。
     this.addChild.clear();
     // resolveComponentFactory() 方法接受一个组件并返回如何创建组件的 ComponentFactory 实例
     let componentFactory : ComponentFactory<ChildrenComponent>= this.componentFactoryResolver.resolveComponentFactory(ChildrenComponent);
-
+    // 帮助理解调试
     console.log(componentFactory); 
     // 创建组件引用
     this.componentRef= this.addChild.createComponent(componentFactory);
-    // 已经能获取新组件的引用，即可以我们可以设置组件的输入类型
+    // 已经能获取新组件的引用，即可以我们可以设置组件的输入类型，传入name字符串
     this.componentRef.instance.name=name;
     console.log(this.componentRef);
 
@@ -691,7 +696,7 @@ import { ChildrenComponent } from './children/children.component';
     BrowserModule
   ],
   providers: [],
-  // 将动态组件ChildrenComponent添加到 NgModule 的entryComponents 中
+  // 将动态组件 ChildrenComponent 添加到 NgModule 的 entryComponents 中
   entryComponents:[ChildrenComponent],
   bootstrap: [AppComponent],
 })
@@ -717,6 +722,9 @@ export class AppModule { }
 
 3. ContentChild[https://angular.cn/api/core/ContentChild](https://angular.cn/api/core/ContentChild)
 
+4. ngTemplateOutlet[https://angular.cn/api/common/NgTemplateOutlet](https://angular.cn/api/common/NgTemplateOutlet)
+
+5. 模板引用变量 ( #var )[https://angular.cn/guide/template-syntax#ref-vars](https://angular.cn/guide/template-syntax#ref-vars)
 
 > Angular 官方网站: https://angular.io，中文网站：https://angular.cn。推荐先阅读文档中的 Tutorial 部分实现官方样例，再阅读 Guide 部分详细了解 Angular 的工作原理。
 >
