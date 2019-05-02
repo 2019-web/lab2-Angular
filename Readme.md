@@ -712,7 +712,16 @@ export class AppModule { }
 
 ##### (2) Modal 组件模版 
 
-[TODO]
+这里在前面叙述 ```(1) 动态创建组件```，是想抛砖引玉说明一下，阿里云的Angular UI框架NG-ZORRO或ng-bootstrap中Modal（模态框）组件部分的使用。
+
+具体的文档:
+
+NG-ZORRO [服务方式创建Modal](https://ng.ant.design/components/modal/zh#components-modal-demo-service)
+
+
+ng-bootstrap [Modal with options](https://ng-bootstrap.github.io/#/components/modal/examples#options)
+
+这里太深入的东西，我就不是很懂了，原理部分应该是前面叙述的```(1) 动态创建组件```部分，点到为止。
 
 
 
