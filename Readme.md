@@ -744,6 +744,8 @@ ng-bootstrap [Modal with options](https://ng-bootstrap.github.io/#/components/mo
 
 5. 模板引用变量 ( #var )[https://angular.cn/guide/template-syntax#ref-vars](https://angular.cn/guide/template-syntax#ref-vars)
 
+6. Angular 4.x 动态创建组件[https://segmentfault.com/a/1190000009175508](https://segmentfault.com/a/1190000009175508)
+
 > Angular 官方网站: https://angular.io，中文网站：https://angular.cn。推荐先阅读文档中的 Tutorial 部分实现官方样例，再阅读 Guide 部分详细了解 Angular 的工作原理。
 >
 > Angular 开发相关资源：https://angular.io/resources，中文：https://angular.cn/resources。其中，IDE 推荐使用 IntelliJ 或者 WebStorm，Tooling 部分推荐学习 Angular CLI，UI Component 部分列举了目前主要的 UI 库，跨平台开发部分推荐了解 Ionic 和 Electron。
@@ -764,7 +766,7 @@ ng-bootstrap [Modal with options](https://ng-bootstrap.github.io/#/components/mo
 
 **题目1:** 
 
-- 在第一部分，给alice组件定义属性值```age=13```,方法值```sayHello() {console.log("alice say hello")}```，然后利用ContentChild()在父组件中调用子组件内的方法。这部分代码以“姓名+学号+angular+part1.zip”的压缩，(node_modules文件夹不包括)
+- 在第一部分，给alice组件定义属性```age=13```，方法```sayHello() {console.log("alice say hello")}```，然后利用装饰器 ContentChild 在 parents 组件中调用 alice 组件内的属性和方法。这部分代码以“姓名+学号+angular+part1.zip”的压缩，(node_modules文件夹不包括)
 
 - 在第二部部分，子组件有一个```input```的属性，输入了姓名```name```字段值。现在要求以合理的方式实现父子组件通信的功能，功能上不要求。这部分代码以“姓名+学号+angular+part2.zip”的压缩，(node_modules文件夹不包括)
 
