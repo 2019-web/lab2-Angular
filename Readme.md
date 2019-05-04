@@ -762,7 +762,7 @@ ng-bootstrap [Modal with options](https://ng-bootstrap.github.io/#/components/mo
 
 截止时间：2018-5-12 23:59:59
 
-提交方式：将文档和压缩包提交到超星指定的lab作业栏里
+提交方式：将压缩包提交到超星指定的lab作业栏里
 
 **题目:** 
 
